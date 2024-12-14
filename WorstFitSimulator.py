@@ -44,6 +44,7 @@ class WorstFitSimulator:
             # Display results
             self.output_text.config(state=tk.NORMAL)
             self.output_text.delete(1.0, tk.END)
+            self.output_text.insert(tk.END, "The way it Memory Allocation step by step:\n")
 
             # Worst Fit Allocation logic
             for i in range(len(processes)):
@@ -53,6 +54,9 @@ class WorstFitSimulator:
                 for j in range(len(blocks)):
                     if blocks[j] > blocks[lagestBlockIndex]:
                         lagestBlockIndex = j
+                #display it
+                self.output_text.insert(tk.END, f"Step {i+1} \n")
+                self.output_text.insert(tk.END, f"The largest memory block is Block {lagestBlockIndex+1} sized as ({blocks[lagestBlockIndex]} KB): \n")
 
                 # allocating processes into blocks
                 if blocks[lagestBlockIndex] >= processes[i]:
@@ -63,6 +67,13 @@ class WorstFitSimulator:
                     #when cannot allocate due to process size is huge
                     allocation[i] = -1
 
+                #display it
+                if allocation[i] != -1:
+                    self.output_text.insert(tk.END, f"Process {i+1} ({processes[i]} KB) allocated to Block {allocation[i]+1} and remaining size of Block {allocation[i]+1} is {blocks[lagestBlockIndex]} KB \n")
+                else:
+                    self.output_text.insert(tk.END, f"Process {i+1} ({processes[i]} KB) could not be allocated\n")
+                
+                self.output_text.insert(tk.END, "\n")
 
             # Final result display
             self.output_text.insert(tk.END, "Final Memory Allocation Results:\n")
