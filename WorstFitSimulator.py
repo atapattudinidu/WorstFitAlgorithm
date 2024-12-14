@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from tkinter import *
 
 class WorstFitSimulator:
     def __init__(self, root):
@@ -27,7 +28,9 @@ class WorstFitSimulator:
         # Output box for results
         self.output_label = tk.Label(root, text="Results:")
         self.output_label.pack()
-        self.output_text = tk.Text(root, width=70, height=15, state=tk.DISABLED)
+        self.scroll_bar = Scrollbar(root)
+        self.scroll_bar.pack( side = RIGHT, fill = Y )
+        self.output_text = tk.Text(root, width=70, height=15, state=tk.DISABLED, yscrollcommand = self.scroll_bar.set)
         self.output_text.pack()
 
     def simulate_allocation(self):
